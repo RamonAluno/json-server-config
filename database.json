@@ -1,0 +1,19 @@
+{
+  "produtos": [
+    {
+      "nome": "Polystation 7 o retorno",
+      "preco": 1200,
+      "id": 2
+    },
+    {
+      "nome": "Playstation",
+      "preco": 4200,
+      "id": 3
+    },
+    {
+      "nome": "Pc gamer",
+      "preco": 3400,
+      "id": 4
+    }
+  ]
+}
