@@ -1,45 +1,71 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const dataContainer =
-            document.getElementById('data-container');
+import { getAllGames } from "./service";
 
-            //funão para tratar erro 404
-            const handleErros = (response) => {
-                if(!response.ok){
-                  throw Error (response.statusText);
-                }
-                return response;
-            }
+window.onload = () => {
+    loadGames();
+};
 
-         //função para buscar e exibir dados API
-         const fetchData = async () =>{
-        try {
-            // fazendo a solicitção get para obter produtos da API
-            const response = await fetch('http://localhost:3000/produtos');
-            //lidando com erros na resposta
-
-            handleErros(response)
-            // convertendo a resposta para json
-            const data = await response.json();
-
-            // Exibindo dados na página
-            data.forEach(produto => {
-                const produtoElemento = 
-                    document.createElement('div');
-                    produtoElemento.innerHTML = 
-        `<strong>${produto.nome}</strong><p>${produto.preco}</p>`
-
-        dataContainer.appendChild(produtoElemento);
-            });
+const loadGames = () =>{
+    console.log('>>>')
+    const dataContainer = document.getElementById('data-container');
+    getAllGames().then(resp =>{
+        resp.forEach(game => {
+            const gamesElement = document.createElement ('div');
+            gamesElement.innerHTML = `<strong>${game.nome}</strong><p>${game.preco}</p>`;
+            dataContainer.appendChild(gamesElement);
+        })
+    })
+}
 
 
+const createGame = () => {
+    const jogoTeste = {
+        "nome": "The legend of Zelda",
+        "img": "https://codetheworld.io/wp-content/uploads/2023/12/Dark-Souls.png",
+        "preco": 100
+    };
+    fetch('http://localhost:3000/jogos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jogoTeste)
+    })
+        .then(response => response.json())
+        .then(data => console.log('sucesso: ', data))
+        .catch((error) => console.log('Erro: ', error));
 
+};
 
+const deleteGame = () => {
+    const game = {
+        nome: "The legend of Zelda",
+        img: "https://codetheworld.io/wp-content/uploads/2023/12/Dark-Souls.png",
+        preco: 100,
+        id: 3
+    };
 
+    fetch(URL + `/${game.id}`, { method: 'DELETE', })
+        .then(response => response.json())
+        .then(data => console.log('sucesso: ', data))
+        .catch((error) => console.log('Erro: ', error));
+};
 
-        } catch (error) {
-            console.log('erro ao buscar dados:'. error);
-        }
-         };
-        fetchData() ;
+const updateGame = () => {
+    const game = {
+        nome: "The legend of Zelda 2 treZ",
+        img: "https://codetheworld.io/wp-content/uploads/2023/12/Dark-Souls.png",
+        preco: 400,
+        id: 3
+    };
+    fetch(URL + `/${game.id}`, {
+        method: 'PATCH', headers: {
+            'Content-Type': 'Application/json'
+        },
+        body: JSON.stringify(game)
+    })
 
-});
+        .then(response => response.json())
+        .then(data => console.log('sucesso: ', data))
+        .catch((error) => console.log('Erro: ', error));
+
+};
