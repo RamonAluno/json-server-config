@@ -1,27 +1,52 @@
-import { handleErrors } from "./exception.js";
-var URL = 'http://localhost:3000/jogos'
+//importar o arquivo que tem os metodos de exceptions
+import { handleErrors } from "./exceptions.js";
+
+var URL = 'http://localhost:3000/jogos';
+
 export const getAllGames = async () => {
     try {
-    // Fazendo uma solicitação GET para obter produtos da AP
-    const response =
-        await fetch('http://localhost:3000/jogos');
-    //lidando com oerros na resposta
-    handleErrors(response);
+        // Fazendo uma solicitação GET para obter produtos da AP
+        const response = await fetch(URL);
+        
+        //lidando com oerros na resposta
+        handleErrors(response);
 
-    //converter os dados para json
-    const data = await response.json();
+        //converter os dados para json
+        return await response.json();
+    } catch (error) {
+        console.log('Error >>>', error);
+    }
+};
 
-    //exibir os dados na pagina html
-    data.forEach(jogo => {
-        const tagDiv =
-            document.createElement('div');
-        tagDiv.innerHTML =
-            `<strong>${jogo.nome}</strong><p>${jogo.preco}</p>`;
-        dataContainer.appendChild(tagDiv);
-    });
+export const createGame = async (game) => {
+    fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(game)
+    })
+        .then(response => response.json())
+        .then(data => console.log('sucesso: ', data))
+        .catch((error) => console.log('Erro: ', error));
 
-} catch (error) {
-    console.log('Error >>>', error);
+};
+
+export const deleteGame = async (game) => {
+    fetch(URL + `/${game.id}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(data => console.log('Success:', data))
+        .catch(error => console.error('Error:', error));
+};
+
+export const updateGame = async (game) =>{
+    fetch(URL + `/${game.id}`, {
+        method: 'PATCH', headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(game)
+    })
+        .then(response => response.json())
+        .then(data => console.log('sucesso: ', data))
+        .catch((error) => console.log('Erro: ', error));
 }
-} 
-

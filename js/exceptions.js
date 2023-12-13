@@ -1,3 +1,4 @@
+
 // Função para lidar com erros nas solicitações fetch
 export const handleErrors = (response) => {
     if (!response.ok) {
@@ -5,4 +6,3 @@ export const handleErrors = (response) => {
     }
     return response;
 };
-
