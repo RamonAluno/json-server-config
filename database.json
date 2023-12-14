@@ -1,3 +1,4 @@
+
 {
   "jogos": [
     {
@@ -13,9 +14,9 @@
       "preco": 200
     },
     {
-      "nome": "The legend of Zelda 2",
-      "img": "https://codetheworld.io/wp-content/uploads/2023/12/Dark-Souls.png",
-      "preco": 300,
+      "nome": "The legend of Zelda",
+      "img": "https://zelda.nintendo.com/tears-of-the-kingdom/_images/game/logo-shadow.png",
+      "preco": 100,
       "id": 3
     }
   ]

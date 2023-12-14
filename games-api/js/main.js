@@ -1,5 +1,5 @@
 
-import { getAllGames } from "./service.js";
+import { getAllGames, createGame, deleteGame, updateGame, } from "./service.js";
 
 window.onload = () => {
     loadGames();
@@ -12,11 +12,25 @@ const loadGames = () => {
     const dataContainer = 
         document.getElementById('data-container');
         getAllGames().then(resp =>{
-        resp.forEach(game => {
+        resp.forEach(jogo => {
             const gamesElement = 
                 document.createElement('div');
                 gamesElement.innerHTML = 
-`<strong>${game.nome}</strong><p>${game.preco}</p>`;
+`
+<div class="elemento">
+<img class="cardimg" src="${jogo.img}"
+alt="${jogo.nome}">
+
+<hr>
+
+<h5 class="cardtitle"> ${jogo.nome} </h5>
+
+<hr>
+<p class="cardtext"> R$ ${jogo.preco} <p>
+
+</div>
+
+`;
              dataContainer.appendChild(gamesElement);
         });
     })
@@ -33,19 +47,19 @@ document.getElementById('btnCreate').addEventListener('click', () => {
 
 });
 
-document.getElementById('bntDelete').addEventListener('click', ()=>{
-
+document.getElementById('btnDelete').addEventListener('click', ()=>{
     const jogo = {
     
-    nome: "The legend of Zelda 2",
-    img: "https://codetheworld.io/wp-content/uploads/2023/12/Dark-Souls.png",
-    preco: 300,
-    id: 3
+    "nome": "The legend of Zelda 2",
+    "img": "https://codetheworld.io/wp-content/uploads/2023/12/Dark-Souls.png",
+    "preco": 300,
+    "id": 3
     };
+    
     deleteGame(jogo);
 });
 
-document.getElementById('bntUpdate').addEventListener('click', ()=>{
+document.getElementById('btnUpdate').addEventListener('click', ()=>{
 
     const jogo = {
     
