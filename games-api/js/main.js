@@ -71,3 +71,6 @@ document.getElementById('btnUpdate').addEventListener('click', ()=>{
     updateGame(jogo);
 });
 
+let taxa = 100;
+
+
